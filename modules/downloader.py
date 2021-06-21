@@ -5,7 +5,7 @@ from modules.utils import images_options
 from modules.utils import bcolors as bc
 from multiprocessing.dummy import Pool as ThreadPool
 
-def download(args, df_val, folder, dataset_dir, class_name, class_code, class_list=None, threads = 20):
+def download(args, df_val, folder, dataset_dir, class_name, class_code, df_classes, class_list=None, threads = 20):
     '''
     Manage the download of the images and the label maker.
     :param args: argument parser.
@@ -47,10 +47,19 @@ def download(args, df_val, folder, dataset_dir, class_name, class_code, class_li
     else:
         class_name_list = class_name
 
+    class_person = ['Person', 'Boy', 'Girl', 'Man', 'Woman']
+    class_code_person = []
+    for class_p in class_person:
+        tmp = df_classes.loc[df_classes[1] == class_p].values[0][0]
+        class_code_person.append(tmp)
+
+
     download_img(folder, dataset_dir, class_name_list, images_list, threads)
     if not args.sub:
         get_label(folder, dataset_dir, class_name, class_code, df_val, class_name_list, args)
 
+        for i in range(len(class_person)):
+            get_label(folder, dataset_dir, class_person[i], class_code_person[i], df_val, class_name_list, args)
 
 def download_img(folder, dataset_dir, class_name, images_list, threads):
     '''

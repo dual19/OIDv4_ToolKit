@@ -25,11 +25,15 @@ def convert(filename_str, coords):
 ROOT_DIR = os.getcwd()
 
 # create dict to map class names to numbers for yolo
+person_types = ['Boy', 'Man', 'Girl', 'Woman']
 classes = {}
 with open("classes.txt", "r") as myFile:
     for num, line in enumerate(myFile, 0):
         line = line.rstrip("\n")
         classes[line] = num
+        if (line in person_types):
+            classes[line] = classes['Person']
+            
     myFile.close()
 # step into dataset directory
 os.chdir(os.path.join("OID", "Dataset"))
