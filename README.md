@@ -1,5 +1,5 @@
-<h1> Forked repository and added conversion python script </h1>
-My added script is: 
+<h1> Forked repository, customized to collect all person and ball images for LPCV Drone Video challange </h1>
+Added script is: 
 <strong>convert_annotations.py</strong>
 
 Use toolkit normally to gather images from open images dataset. After gathering images just run from root directory:
